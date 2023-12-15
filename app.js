@@ -6,13 +6,13 @@ const bodyParser = require("body-parser");
 const usersRoutes = require("./routes/users");
 const shopRoutes = require("./routes/shop");
 
+const errorController = require("./controllers/erro404");
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(usersRoutes);
-app.use(shopRoutes);
+app.use("/shop", shopRoutes);
 
-app.get("/", function (req, res) {
-  res.send("Hello World");
-});
+app.use(errorController.get404);
 const server = http.createServer(app);
 server.listen(3000);
